@@ -3,11 +3,15 @@ FROM ghcr.io/home-assistant/aarch64-base:latest
 RUN apk add --no-cache \
     python3 \
     py3-pip \
-    py3-pyserial \
+    py3-serial \
     py3-paho-mqtt
 
-COPY run.sh /run.sh
-COPY ghp-mm2mqtt.py /ghp-mm2mqtt.py
-COPY ghp_config.py /ghp_config.py
+WORKDIR /usr/src/app
 
-CMD ["/run.sh"]
+COPY run.sh .
+COPY ghp-mm2mqtt.py .
+COPY ghp_config.py .
+COPY hass-sensors.txt .
+
+RUN chmod +x run.sh
+CMD ["sh", "./run.sh"]

@@ -1,15 +1,18 @@
 {
-  "name": "GHP MM to MQTT",
-  "version": "1.0",
-  "slug": "ghp_mm2mqtt",
-  "description": "Publishes GHP-MM08 data to MQTT",
-  "startup": "services",
+  "name": "GHP mm2mqtt",
+  "version": "1.0.0",
+  "slug": "ghp-mm2mqtt",
+  "description": "Считывает данные с USB и публикует в MQTT",
+  "startup": "application",
   "boot": "auto",
   "init": false,
+  "panel_icon": "mdi:chip",
+  "arch": ["aarch64", "armv7", "amd64", "i386"],
+  "host_network": true,
+  "devices": ["/dev/serial/by-id/"],
   "options": {},
   "schema": {},
-  "arch": ["armv7", "aarch64"],
-  "host_network": true,
-  "devices": ["/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_BG009VVA-if00-port0"],
-  "privileged": true
+  "logo": "logo.png",
+  "icon": "icon.png",
+  "image": "local/ghp-mm2mqtt"
 }

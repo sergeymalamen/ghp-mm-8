@@ -134,8 +134,78 @@ mqtt_client.loop_start()
 time.sleep(1)
 
 
+
+
+# Вставляем здесь: публикация discovery-сенсоров
+# Подключение к MQTT
+mqtt_client = mqtt.Client()
+mqtt_client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
+mqtt_client.connect(MQTT_BROKER, MQTT_PORT, 60)
+mqtt_client.loop_start()
+time.sleep(1)
+
+# 🔽 Вставь сюда ↓↓↓
+import os
+import json
+import re
+
+def sanitize_topic(topic):
+    return topic.replace("/", "_").replace("+", "_").replace("#", "_")
+
+def is_valid_sensor_line(parts):
+    if len(parts) < 4:
+        return False
+    topic, name, unit, device_class = parts[:4]
+    if "+" in topic or "#" in topic:
+        print(f"⚠️ Пропущено: недопустимый символ в topic → {topic}")
+        return False
+    if not topic or not name or not unit or not device_class:
+        print(f"⚠️ Пропущено: неполная строка → {' '.join(parts)}")
+        return False
+    return True
+
+def publish_discovery(client, topic, name, unit, device_class):
+    sensor_id = sanitize_topic(topic)
+    discovery_topic = f"homeassistant/sensor/{sensor_id}/config"
+    payload = {
+        "name": name,
+        "state_topic": topic,
+        "unit_of_measurement": unit,
+        "value_template": "{{ value_json[0] }}",
+        "unique_id": sensor_id,
+        "device_class": device_class,
+        "device": {
+            "identifiers": ["ghp_device"],
+            "name": "GHP System"
+        }
+    }
+    client.publish(discovery_topic, json.dumps(payload), retain=True)
+    print(f"📤 Discovery опубликован: {discovery_topic}")
+
+# Поиск файла в двух местах
+sensor_file = "/usr/src/app/hass-sensors.txt"
+if not os.path.exists(sensor_file):
+    sensor_file = "/addons/local/ghp-mm2mqtt/hass-sensors.txt"
+
+try:
+    with open(sensor_file) as f:
+        for line in f:
+            parts = line.strip().split()
+            if is_valid_sensor_line(parts):
+                topic, name, unit, device_class = parts[:4]
+                publish_discovery(mqtt_client, topic, name, unit, device_class)
+            else:
+                print(f"⚠️ Строка пропущена: {line.strip()}")
+except FileNotFoundError:
+    print(f"❌ Файл не найден: {sensor_file}")
+
+
+
+# Далее — основной цикл обработки данных
+
 buffer=bytearray(0)
 readAddr=0
+
 
 # Open serial port
 ser = serial.Serial(
