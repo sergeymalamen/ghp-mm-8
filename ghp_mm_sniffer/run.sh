@@ -1,9 +1,7 @@
 #!/usr/bin/with-contenv bashio
 
-
 echo "📄 Проверка /data/options.json:"
 cat /data/options.json || echo "❌ Файл не найден или пуст"
-
 
 # Чтение параметров
 SERIAL_PORT=$(bashio::config 'serial_port')
@@ -15,12 +13,6 @@ MQTT_PASSWORD=$(bashio::config 'mqtt_password')
 # Экспортируем переменные
 export SERIAL_PORT MQTT_BROKER MQTT_PORT MQTT_USERNAME MQTT_PASSWORD
 
-# Запускаем скрипт
-#exec python3 /usr/src/app/ghp-mm2mqtt.py
-exec python3 /usr/src/app/ghp-mm2mqtt.py
-
-
-
 echo "Starting run.sh"
 echo "Serial: $SERIAL_PORT"
 echo "Broker: $MQTT_BROKER:$MQTT_PORT"
@@ -31,4 +23,5 @@ which python3
 echo "📄 /data/options.json:"
 cat /data/options.json
 
-
+# Только теперь запускаем скрипт
+exec python3 /usr/src/app/ghp-mm2mqtt.py
