@@ -2,6 +2,9 @@
 
 # Активация виртуального окружения
 . /venv/bin/activate
+#!/usr/bin/with-contenv bash
+echo "✅ run.sh запущен как PID: $$"
+sleep 60
 
 echo "🔍 Проверка bashio:"
 which bashio || echo "❌ bashio не найден"
