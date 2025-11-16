@@ -12,3 +12,11 @@ export SERIAL_PORT MQTT_BROKER MQTT_PORT MQTT_USERNAME MQTT_PASSWORD
 
 # Запускаем скрипт
 exec python3 /usr/src/app/ghp-mm2mqtt.py
+
+echo "Starting run.sh"
+echo "Serial: $SERIAL_PORT"
+echo "Broker: $MQTT_BROKER:$MQTT_PORT"
+ls -la /usr/src/app
+python3 --version
+which python3
+
