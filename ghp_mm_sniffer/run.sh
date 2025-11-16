@@ -22,3 +22,7 @@ ls -la /usr/src/app
 python3 --version
 which python3
 
+echo "📄 /data/options.json:"
+cat /data/options.json
+
+
