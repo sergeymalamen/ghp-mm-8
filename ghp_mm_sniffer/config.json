@@ -5,12 +5,10 @@
   "description": "Sniffer for GHP MM heat pump",
   "startup": "application",
   "boot": "auto",
-  "init": false,
-  "panel_icon": "mdi:chip",
-  "stage": "stable"
   "host_network": true,
-  "arch": ["aarch64", "armv7", "amd64", "i386"],
-  "devices": ["/dev/ttyUSB0:/dev/ttyUSB0:rwm"],
+  "devices": [
+    "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
+  ],
   "options": {
     "serial_port": "/dev/ttyUSB0",
     "mqtt_broker": "localhost",
