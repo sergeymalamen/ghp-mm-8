@@ -9,7 +9,7 @@
   "host_network": true,
   "devices": ["/dev/ttyUSB0"],
   "options": {
-    "serial_port": "/dev/ttyUSB0",
+    "serial_port": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_BG009VVA-if00-port0",
     "mqtt_broker": "localhost",
     "mqtt_port": 1883,
     "mqtt_username": "",
