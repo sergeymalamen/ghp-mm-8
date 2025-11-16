@@ -10,7 +10,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Устанавливаем зависимости из requirements.txt
-RUN pip3 install --no-cache-dir -r requirements.txt
+#RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Перемещаем run.sh в /usr/bin для s6-overlay
 RUN chmod +x /usr/src/app/run.sh \
