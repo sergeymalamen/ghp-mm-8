@@ -1,5 +1,10 @@
 #!/usr/bin/with-contenv bashio
 
+
+echo "📄 Проверка /data/options.json:"
+cat /data/options.json || echo "❌ Файл не найден или пуст"
+
+
 # Чтение параметров
 SERIAL_PORT=$(bashio::config 'serial_port')
 MQTT_BROKER=$(bashio::config 'mqtt_broker')
