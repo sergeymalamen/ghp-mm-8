@@ -23,4 +23,4 @@ COPY . .
 RUN chmod +x /usr/src/app/run.sh
 
 # Запуск (PID 1 должен быть скрипт, а не python)
-CMD [ "/usr/src/app/run.sh" ]
+CMD ["/usr/src/app/run.sh"]
