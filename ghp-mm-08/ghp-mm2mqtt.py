@@ -261,20 +261,27 @@ readAddr = 0
 
 # ----- Основной запуск -----
 if __name__ == "__main__":
-    # берем параметры из ghp_config или хардкодим
-    MQTT_BROKER = globals().get("MQTT_BROKER", "192.168.1.220")
-    MQTT_PORT = globals().get("MQTT_PORT", 1883)
-    MQTT_USER = globals().get("MQTT_USER", "celiv")
-    MQTT_PASS = globals().get("MQTT_PASS", "230960")
-    SERIAL_PORT = globals().get("SERIAL_PORT", "/dev/ttyUSB0")
-    MQTT_TOPIC_PREFIX = globals().get("MQTT_TOPIC_PREFIX", "heatpump")
+    from ghp_config import (
+        MQTT_BROKER,
+        MQTT_PORT,
+        MQTT_USERNAME,
+        MQTT_PASSWORD,
+        SERIAL_PORT,
+        MQTT_TOPIC_PREFIX
+    )
 
-    _logger.info(f"Config: broker={MQTT_BROKER}:{MQTT_PORT} serial={SERIAL_PORT} topic_prefix={MQTT_TOPIC_PREFIX}")
+    _logger.info(f"Config: broker={MQTT_BROKER}:{MQTT_PORT}, serial={SERIAL_PORT}, topic_prefix={MQTT_TOPIC_PREFIX}")
 
     # Подключаемся к MQTT
-    mqtt_client = connect_mqtt_with_retry(MQTT_BROKER, MQTT_PORT, MQTT_USER, MQTT_PASS)
+    mqtt_client = connect_mqtt_with_retry(
+        host=MQTT_BROKER,
+        port=MQTT_PORT,
+        username=MQTT_USERNAME,
+        password=MQTT_PASSWORD
+    )
     mqtt_client.loop_start()
     _logger.info("MQTT loop started")
+
 
     # Открываем serial (будет повторять попытки при ошибке)
     ser = open_serial_with_retry(SERIAL_PORT, baudrate=9600, timeout=0)
