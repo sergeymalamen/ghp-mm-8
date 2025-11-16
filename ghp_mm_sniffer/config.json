@@ -6,9 +6,8 @@
   "startup": "application",
   "boot": "auto",
   "host_network": true,
-  "devices": [
-    "/dev/ttyUSB0:/dev/ttyUSB0:rwm"
-  ],
+  "arch": ["aarch64", "armv7", "amd64", "i386"],
+  "devices": ["/dev/ttyUSB0"]
   "options": {
     "serial_port": "/dev/ttyUSB0",
     "mqtt_broker": "localhost",
