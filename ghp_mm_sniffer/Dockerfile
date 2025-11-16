@@ -2,6 +2,7 @@ ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-addon-base:latest
 FROM ${BUILD_FROM}
 
 
+
 # Устанавливаем Python и venv
 RUN apk add --no-cache python3 py3-pip py3-virtualenv
 
