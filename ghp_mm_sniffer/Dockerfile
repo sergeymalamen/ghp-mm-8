@@ -1,20 +1,26 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
 FROM ${BUILD_FROM}
 
-# Устанавливаем Python и pip
-RUN apk add --no-cache python3 py3-pip
+# Устанавливаем Python, pip и venv
+RUN apk add --no-cache python3 py3-pip py3-virtualenv
 
 # Рабочая директория
 WORKDIR /usr/src/app
 
-# Копируем файлы аддона
-COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Создаем виртуальное окружение
+RUN python3 -m venv /usr/src/app/venv
 
+# Копируем зависимости отдельно (ускоряет сборку)
+COPY requirements.txt .
+
+# Устанавливаем зависимости внутри venv
+RUN /usr/src/app/venv/bin/pip install --no-cache-dir -r requirements.txt
+
+# Копируем весь аддон
 COPY . .
 
-# Делаем скрипт запуска исполняемым
+# Права на run.sh
 RUN chmod +x /usr/src/app/run.sh
 
-# ВАЖНО: указываем обычный CMD, без venv
-CMD ["/usr/src/app/run.sh"]
+# Запуск (PID 1 должен быть скрипт, а не python)
+CMD [ "/usr/src/app/run.sh" ]
