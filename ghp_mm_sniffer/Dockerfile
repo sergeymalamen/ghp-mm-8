@@ -24,6 +24,4 @@ COPY rootfs/ /
 
 
 # Даём права на запуск скрипта службы
-RUN chmod +x /rootfs/etc/services.d/ghp-mm-sniffer/run
-
-# S6-overlay стартует сам, CMD/ENTRYPOINT не нужны
+RUN chmod +x /etc/services.d/ghp-mm-sniffer/run
