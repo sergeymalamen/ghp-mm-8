@@ -6,8 +6,7 @@
   "arch": ["aarch64", "amd64", "armv7"],
   "startup": "application",
   "boot": "auto",
-  "host_network": true,
-  "devices": ["/dev/ttyUSB0"],
+  "stage": "stable",
   "options": {
     "serial_port": "/dev/ttyUSB0",
     "mqtt_broker": "localhost",
@@ -16,10 +15,17 @@
     "mqtt_password": ""
   },
   "schema": {
-    "serial_port": "str",
+    "serial_port": "str?",
     "mqtt_broker": "str",
     "mqtt_port": "int",
     "mqtt_username": "str?",
     "mqtt_password": "str?"
-  }
+  },
+  "ports": {},
+  "ports_description": {},
+  "host_network": true,
+  "devices": ["/dev/ttyUSB0:/dev/ttyUSB0:rwm"],
+  "full_access": false,
+  "uart": true,
+  "usb": true
 }
