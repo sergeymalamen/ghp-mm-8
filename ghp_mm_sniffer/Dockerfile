@@ -20,7 +20,7 @@ RUN /usr/src/app/venv/bin/pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Копируем rootfs (обязательно!)
-COPY rootfs/rootfs/etc/services.d/ghp-mm-sniffer/run /etc/services.d/ghp-mm-sniffer/run
+COPY rootfs/etc/services.d/ghp-mm-sniffer/run /etc/services.d/ghp-mm-sniffer/run
 
 
 # Даём права на запуск скрипта службы
