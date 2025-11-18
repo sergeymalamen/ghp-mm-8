@@ -1,26 +1,27 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
 FROM ${BUILD_FROM}
 
-# Устанавливаем Python, pip, venv
+# Установка Python и окружения
 RUN apk add --no-cache python3 py3-pip py3-virtualenv
 
-# Рабочая директория
 WORKDIR /usr/src/app
 
-# Создаём виртуальное окружение
+# Создаем виртуальное окружение
 RUN python3 -m venv /usr/src/app/venv
 
-# Копируем зависимости отдельно
+# Копируем зависимости
 COPY requirements.txt .
 
-# Устанавливаем зависимости в venv
+# Устанавливаем зависимости
 RUN /usr/src/app/venv/bin/pip install --no-cache-dir -r requirements.txt
 
-# Копируем весь аддон
+# Копируем остальные файлы
 COPY . .
 
-# Делаем run исполняемым
+# Копируем rootfs (обязательно!)
+COPY rootfs/ /
+
+# Даём права на запуск скрипта службы
 RUN chmod +x /etc/services.d/ghp-mm-sniffer/run
 
-# Стартуем s6-overlay
-CMD [ "/init" ]
+# S6-overlay стартует сам, CMD/ENTRYPOINT не нужны
