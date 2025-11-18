@@ -23,4 +23,5 @@ COPY . .
 RUN chmod +x /usr/src/app/run.sh
 
 # s6-overlay запускает все сам
+ghp_mm_sniffer/rootfs/etc/services.d/ghp-mm-sniffer/run
 
