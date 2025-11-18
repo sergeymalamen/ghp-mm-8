@@ -1,7 +1,0 @@
-#!/usr/bin/with-contenv bash
-
-# Активируем виртуальное окружение
-source /usr/src/app/venv/bin/activate
-
-# Запуск Python-скрипта
-exec python3 /usr/src/app/ghp-mm2mqtt.py
