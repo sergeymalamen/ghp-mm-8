@@ -22,5 +22,5 @@ COPY . .
 # Права на run.sh
 RUN chmod +x /usr/src/app/run.sh
 
-# Запуск (PID 1 должен быть скрипт, а не python)
-CMD ["/usr/src/app/run.sh"]
+# s6-overlay запускает все сам
+
