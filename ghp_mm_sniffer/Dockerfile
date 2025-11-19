@@ -12,4 +12,4 @@ COPY rootfs/ /
 
 COPY . .
 
-#RUN chmod +x /etc/services.d/ghp-mm-sniffer/run
+RUN chmod +x /etc/services.d/ghp-mm-sniffer/run
