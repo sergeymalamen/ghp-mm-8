@@ -5,14 +5,10 @@ RUN apk add --no-cache python3 py3-pip py3-virtualenv
 
 WORKDIR /usr/src/app
 
-RUN python3 -m venv /usr/src/app/venv
-
 COPY requirements.txt .
-
+RUN python3 -m venv /usr/src/app/venv
 RUN /usr/src/app/venv/bin/pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-COPY rootfs/ /
-
-RUN chmod +x /etc/services.d/ghp-mm-sniffer/run
+RUN chmod +x /rootfs/etc/services.d/ghp-mm-sniffer/run
